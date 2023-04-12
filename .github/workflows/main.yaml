@@ -1,0 +1,32 @@
+name: demo-new-deploy
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+
+  deploy-preprod:
+    runs-on: ubuntu-latest
+    environment: 
+      name: preprod
+      url: 'dgsamper.github.io/ghactions'
+    needs: build
+    steps:
+      - name: Run a one-line script
+        run: echo Deploy preprod
+
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: 
+      name: prod
+      url: 'dgsamper.github.io/ghactions'
+    needs: deploy-preprod
+    steps:
+      - name: Run a one-line script
+        run: echo Deploy prod
